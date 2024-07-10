@@ -62,3 +62,26 @@ FROM
 GROUP BY customer.customer_id , customer.first_name , customer.last_name
 ORDER BY totals DESC
 LIMIT 1
+
+-- /* Question Set 2 - Moderate */
+
+-- /* Q1: Write query to return the email, first name, last name, & Genre of all Rock Music listeners. 
+-- Return your list ordered alphabetically by email starting with A. */
+
+-- /*Method 1 */
+
+SELECT 
+    email, first_name, last_name
+FROM
+    customer
+        JOIN
+    invoice ON customer.customer_id = invoice.invoice_id
+        JOIN
+    invoice_line ON invoice_line.invoice_id = invoice.invoice_id
+        JOIN
+    track ON track.track_id = invoice_line.track_id
+        JOIN
+    genre ON genre.genre_id = track.genre_id
+WHERE
+    genre.name = 'rock'
+ORDER BY email
